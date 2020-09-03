@@ -1,2 +1,2 @@
-public class Laptop {
+public class Laptop extends PersonalComputer {
 }
