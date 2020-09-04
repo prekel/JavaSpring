@@ -1,4 +1,4 @@
-import java.util.Objects;
+package entities;
 
 public class Computer {
 

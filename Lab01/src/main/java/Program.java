@@ -1,3 +1,5 @@
+import entities.*;
+
 import java.util.ArrayList;
 
 public class Program {
