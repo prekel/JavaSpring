@@ -1,4 +1,4 @@
-import entities.*;
+import entities.Computer;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,6 @@ public class Program {
         System.out.println("Hello world");
 
         var a = new ArrayList<Computer>();
-
-        a.add(new Laptop());
 
         for (var i : a) {
             System.out.println(i);
