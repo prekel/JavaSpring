@@ -17,6 +17,14 @@ public class Laptop extends PersonalComputer {
     }
 
     @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getField3();
+        result = 31 * result + (getName3() != null ? getName3().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Laptop)) return false;
@@ -26,14 +34,6 @@ public class Laptop extends PersonalComputer {
 
         if (getField3() != laptop.getField3()) return false;
         return getName3() != null ? getName3().equals(laptop.getName3()) : laptop.getName3() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getField3();
-        result = 31 * result + (getName3() != null ? getName3().hashCode() : 0);
-        return result;
     }
 
     @Override
@@ -60,4 +60,5 @@ public class Laptop extends PersonalComputer {
     public void setName3(String name3) {
         Name3 = name3;
     }
+
 }

@@ -37,6 +37,15 @@ public class PersonalComputer extends Computer {
         return getName2() != null ? getName2().equals(that.getName2()) : that.getName2() == null;
     }
 
+    @Override
+    public String toString() {
+        return "PersonalComputer{" +
+                "Field2=" + Field2 +
+                ", Name2='" + Name2 + '\'' +
+                ", Name='" + Name + '\'' +
+                '}';
+    }
+
     public int getField2() {
         return Field2;
     }
@@ -53,12 +62,4 @@ public class PersonalComputer extends Computer {
         Name2 = name2;
     }
 
-    @Override
-    public String toString() {
-        return "PersonalComputer{" +
-                "Field2=" + Field2 +
-                ", Name2='" + Name2 + '\'' +
-                ", Name='" + Name + '\'' +
-                '}';
-    }
 }

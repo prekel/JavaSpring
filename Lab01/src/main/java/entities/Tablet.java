@@ -19,6 +19,14 @@ public class Tablet extends PersonalComputer {
     }
 
     @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getField4();
+        result = 31 * result + (getName4() != null ? getName4().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Tablet)) return false;
@@ -28,14 +36,6 @@ public class Tablet extends PersonalComputer {
 
         if (getField4() != tablet.getField4()) return false;
         return getName4() != null ? getName4().equals(tablet.getName4()) : tablet.getName4() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getField4();
-        result = 31 * result + (getName4() != null ? getName4().hashCode() : 0);
-        return result;
     }
 
     @Override

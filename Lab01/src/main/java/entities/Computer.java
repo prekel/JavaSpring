@@ -33,6 +33,14 @@ public class Computer {
         return getName() != null ? getName().equals(computer.getName()) : computer.getName() == null;
     }
 
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "Name='" + Name + '\'' +
+                ", Field1=" + Field1 +
+                '}';
+    }
+
     public int getField1() {
         return Field1;
     }
@@ -43,13 +51,5 @@ public class Computer {
 
     public void setField1(int field1) {
         Field1 = field1;
-    }
-
-    @Override
-    public String toString() {
-        return "Computer{" +
-                "Name='" + Name + '\'' +
-                ", Field1=" + Field1 +
-                '}';
     }
 }
