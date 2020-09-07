@@ -15,16 +15,11 @@ public class Computer {
         Name = name;
     }
 
-    public String getName() {
-        return Name;
-    }
-
-    public int getField1() {
-        return Field1;
-    }
-
-    public void setField1(int field1) {
-        Field1 = field1;
+    @Override
+    public int hashCode() {
+        int result = getField1();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -38,11 +33,16 @@ public class Computer {
         return getName() != null ? getName().equals(computer.getName()) : computer.getName() == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = getField1();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
+    public int getField1() {
+        return Field1;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setField1(int field1) {
+        Field1 = field1;
     }
 
     @Override

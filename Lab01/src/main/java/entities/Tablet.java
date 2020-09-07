@@ -38,6 +38,15 @@ public class Tablet extends PersonalComputer {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Tablet{" +
+                "Field4=" + Field4 +
+                ", Name4='" + Name4 + '\'' +
+                ", Name='" + Name + '\'' +
+                '}';
+    }
+
     public int getField4() {
         return Field4;
     }
@@ -52,14 +61,5 @@ public class Tablet extends PersonalComputer {
 
     public void setName4(String name4) {
         Name4 = name4;
-    }
-
-    @Override
-    public String toString() {
-        return "Tablet{" +
-                "Field4=" + Field4 +
-                ", Name4='" + Name4 + '\'' +
-                ", Name='" + Name + '\'' +
-                '}';
     }
 }

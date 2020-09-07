@@ -18,6 +18,14 @@ public class PersonalComputer extends Computer {
     }
 
     @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getField2();
+        result = 31 * result + (getName2() != null ? getName2().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonalComputer)) return false;
@@ -27,14 +35,6 @@ public class PersonalComputer extends Computer {
 
         if (getField2() != that.getField2()) return false;
         return getName2() != null ? getName2().equals(that.getName2()) : that.getName2() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getField2();
-        result = 31 * result + (getName2() != null ? getName2().hashCode() : 0);
-        return result;
     }
 
     public int getField2() {

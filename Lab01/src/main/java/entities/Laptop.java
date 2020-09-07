@@ -17,15 +17,6 @@ public class Laptop extends PersonalComputer {
     }
 
     @Override
-    public String toString() {
-        return "Laptop{" +
-                "Field3=" + Field3 +
-                ", Name3='" + Name3 + '\'' +
-                ", Name='" + Name + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Laptop)) return false;
@@ -43,6 +34,15 @@ public class Laptop extends PersonalComputer {
         result = 31 * result + getField3();
         result = 31 * result + (getName3() != null ? getName3().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Laptop{" +
+                "Field3=" + Field3 +
+                ", Name3='" + Name3 + '\'' +
+                ", Name='" + Name + '\'' +
+                '}';
     }
 
     public int getField3() {
