@@ -3,8 +3,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Program {
     public static void main(String[] args) {
         var context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        var testBean = context.getBean("myBean", MyBean.class);
-        System.out.println(testBean.getName());
+        var pc1 = context.getBean("pc1", PersonalComputer.class);
+        var pc2 = context.getBean("pc2", PersonalComputer.class);
+        var pc3 = context.getBean("pc3", PersonalComputer.class);
+        var pc4 = context.getBean("pc4", PersonalComputer.class);
+        System.out.println(pc1);
+        System.out.println(pc2);
+        System.out.println(pc3);
+        System.out.println(pc4);
         context.close();
     }
 }
