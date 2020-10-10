@@ -1,8 +1,8 @@
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Program {
     public static void main(String[] args) {
-        var context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         var pc1 = context.getBean("pc1", PersonalComputer.class);
         var pc2 = context.getBean("pc2", PersonalComputer.class);
         var pc3 = context.getBean("pc3", PersonalComputer.class);

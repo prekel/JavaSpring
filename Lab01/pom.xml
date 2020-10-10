@@ -2,12 +2,15 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>JavaSpring</artifactId>
-        <groupId>com.github.prekel.JavaSpring</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.prekel.JavaSpring.Lab01</groupId>
+    <artifactId>Lab01</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>Lab01</name>
+    <url>https://github.com/prekel/JavaSpring/tree/master/Lab01</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,9 +18,5 @@
         <maven.compiler.target>12</maven.compiler.target>
         <maven.compiler.release>12</maven.compiler.release>
     </properties>
-
-
-    <artifactId>Lab01</artifactId>
-
 
 </project>
