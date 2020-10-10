@@ -6,7 +6,7 @@ public class UnlockedCpu implements Cpu {
 
     @Override
     public String toString() {
-        return "com.github.prekel.JavaSpring.Lab03.components.com.github.prekel.JavaSpring.Lab02.components.UnlockedCpu{" +
+        return "UnlockedCpu{" +
                 "busClock=" + busClock +
                 ", multiplier=" + multiplier +
                 ", clock=" + getClock() +

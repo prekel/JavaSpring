@@ -5,7 +5,7 @@ public class LockedCpu implements Cpu {
 
     @Override
     public String toString() {
-        return "com.github.prekel.JavaSpring.Lab03.components.com.github.prekel.JavaSpring.Lab02.components.LockedCpu{" +
+        return "LockedCpu{" +
                 "clock=" + clock +
                 '}';
     }
