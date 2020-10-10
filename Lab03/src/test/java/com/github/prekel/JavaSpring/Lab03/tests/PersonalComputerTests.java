@@ -1,12 +1,15 @@
-import com.github.prekel.JavaSpring.Lab02.components.PersonalComputer;
-import com.github.prekel.JavaSpring.Lab02.components.UnlockedCpu;
+package com.github.prekel.JavaSpring.Lab03.tests;
+
+import com.github.prekel.JavaSpring.Lab03.Config;
+import com.github.prekel.JavaSpring.Lab03.components.PersonalComputer;
+import com.github.prekel.JavaSpring.Lab03.components.UnlockedCpu;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonalComputerTests {
-    private final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
     @Test
     public void pc1Test() {
@@ -44,5 +47,24 @@ public class PersonalComputerTests {
         assertEquals(110, unlockedCpu4.getBusClock());
         assertEquals(20, unlockedCpu4.getMultiplier());
         assertEquals("Pc with cpu4", pc4.getName());
+    }
+
+    @Test
+    public void pcAsComponentTest() {
+        var pc = context.getBean("pcAsComponent", PersonalComputer.class);
+        var cpu1 = pc.getCpu();
+        assertEquals(3600, cpu1.getClock());
+        assertEquals("Default PC name", pc.getName());
+    }
+
+    @Test
+    public void pcFromFabricMethodTest() {
+        var pcf = context.getBean("pcFromFabricMethod", PersonalComputer.class);
+        var cpu4 = pcf.getCpu();
+        var unlockedCpu4 = (UnlockedCpu) cpu4;
+        assertEquals(2200, cpu4.getClock());
+        assertEquals(110, unlockedCpu4.getBusClock());
+        assertEquals(20, unlockedCpu4.getMultiplier());
+        assertEquals("Pc from fabric method", pcf.getName());
     }
 }
