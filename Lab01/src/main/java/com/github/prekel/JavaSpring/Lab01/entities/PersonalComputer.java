@@ -1,4 +1,4 @@
-package entities;
+package com.github.prekel.JavaSpring.Lab01.entities;
 
 public class PersonalComputer extends Computer {
     private int Field2;

@@ -1,7 +1,9 @@
-import entities.Computer;
-import entities.Laptop;
-import entities.PersonalComputer;
-import entities.Tablet;
+package com.github.prekel.JavaSpring.Lab01;
+
+import com.github.prekel.JavaSpring.Lab01.entities.Computer;
+import com.github.prekel.JavaSpring.Lab01.entities.Laptop;
+import com.github.prekel.JavaSpring.Lab01.entities.PersonalComputer;
+import com.github.prekel.JavaSpring.Lab01.entities.Tablet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
