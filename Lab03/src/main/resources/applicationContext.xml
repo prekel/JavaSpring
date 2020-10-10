@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="cpu1" class="LockedCpu">
+        <constructor-arg name="clock" value="3600"/>
+    </bean>
+    <bean id="cpu2" class="LockedCpu">
+        <constructor-arg name="clock" value="2600"/>
+    </bean>
+    <bean id="cpu3" class="UnlockedCpu">
+        <constructor-arg name="busClock" value="100"/>
+        <constructor-arg name="multiplier" value="40"/>
+    </bean>
+    <bean id="cpu4" class="UnlockedCpu">
+        <constructor-arg name="busClock" value="110"/>
+        <constructor-arg name="multiplier" value="20"/>
+    </bean>
+    <bean id="pc1" class="PersonalComputer">
+        <constructor-arg name="cpu" ref="cpu1"/>
+        <constructor-arg name="name" value="Pc with cpu1"/>
+    </bean>
+    <bean id="pc2" class="PersonalComputer">
+        <constructor-arg name="cpu" ref="cpu2"/>
+        <constructor-arg name="name" value="Pc with cpu2"/>
+    </bean>
+    <bean id="pc3" class="PersonalComputer">
+        <constructor-arg name="cpu" ref="cpu3"/>
+        <property name="name" value="Pc with cpu3"/>
+    </bean>
+    <context:property-placeholder location="classpath:pc4.properties"/>
+    <bean id="pc4" class="PersonalComputer">
+        <constructor-arg name="cpu" ref="cpu4"/>
+        <property name="name" value="${pc4.name}"/>
+    </bean>
+</beans>
