@@ -1,10 +1,12 @@
+package com.github.prekel.JavaSpring.Lab02.components;
+
 public class UnlockedCpu implements Cpu {
     private final int busClock;
     private int multiplier;
 
     @Override
     public String toString() {
-        return "UnlockedCpu{" +
+        return "com.github.prekel.JavaSpring.Lab02.components.UnlockedCpu{" +
                 "busClock=" + busClock +
                 ", multiplier=" + multiplier +
                 ", clock=" + getClock() +

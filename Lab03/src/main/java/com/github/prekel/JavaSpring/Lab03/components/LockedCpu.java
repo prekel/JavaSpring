@@ -1,9 +1,11 @@
+package com.github.prekel.JavaSpring.Lab03.components;
+
 public class LockedCpu implements Cpu {
     private final int clock;
 
     @Override
     public String toString() {
-        return "LockedCpu{" +
+        return "com.github.prekel.JavaSpring.Lab03.components.com.github.prekel.JavaSpring.Lab02.components.LockedCpu{" +
                 "clock=" + clock +
                 '}';
     }

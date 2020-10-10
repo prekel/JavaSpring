@@ -1,3 +1,6 @@
+package com.github.prekel.JavaSpring.Lab02;
+
+import com.github.prekel.JavaSpring.Lab02.components.PersonalComputer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Program {

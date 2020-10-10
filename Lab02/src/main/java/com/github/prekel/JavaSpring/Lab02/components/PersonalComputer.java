@@ -1,10 +1,12 @@
+package com.github.prekel.JavaSpring.Lab02.components;
+
 public class PersonalComputer {
     private final Cpu cpu;
     private String name = "Default PC name";
 
     @Override
     public String toString() {
-        return "PersonalComputer{" +
+        return "com.github.prekel.JavaSpring.Lab02.components.PersonalComputer{" +
                 "cpu=" + cpu +
                 ", name='" + name + '\'' +
                 '}';

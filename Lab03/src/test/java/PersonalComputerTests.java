@@ -1,3 +1,5 @@
+import com.github.prekel.JavaSpring.Lab03.components.PersonalComputer;
+import com.github.prekel.JavaSpring.Lab03.components.UnlockedCpu;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
