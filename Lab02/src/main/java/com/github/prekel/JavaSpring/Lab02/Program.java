@@ -14,6 +14,13 @@ public class Program {
         System.out.println(pc2);
         System.out.println(pc3);
         System.out.println(pc4);
+
+        System.out.println();
+
+        for (String beanName : context.getBeanDefinitionNames()) {
+            System.out.println(beanName);
+        }
+
         context.close();
     }
 }
