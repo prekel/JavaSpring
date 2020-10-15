@@ -1,15 +1,20 @@
 package com.github.prekel.JavaSpring.Lab03;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.prekel.JavaSpring.Lab03.components.PersonalComputer;
 
 public class Program {
     public static void main(String[] args) {
+        //SpringApplication.run(Program.class, args);
+
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-        var pc1 = context.getBean("pc1", PersonalComputer.class);
-        var pc2 = context.getBean("pc2", PersonalComputer.class);
-        var pc3 = context.getBean("pc3", PersonalComputer.class);
+        var config = context.getBean("config", Config.class);
+
+        var pc1 = config.pc1();
+        var pc2 = config.pc2();
+        var pc3 = config.pc3();
         var pc4 = context.getBean("pc4", PersonalComputer.class);
         var pc = context.getBean("pcAsComponent", PersonalComputer.class);
         var pcf = context.getBean("pcFromFabricMethod", PersonalComputer.class);
@@ -25,6 +30,7 @@ public class Program {
         for (String beanName : context.getBeanDefinitionNames()) {
             System.out.println(beanName);
         }
+
         context.close();
     }
 }
