@@ -6,20 +6,47 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration("springConfig")
 @ComponentScan("com.github.prekel.JavaSpring.Lab04.component")
 @PropertySource("classpath:application.properties")
+@EnableTransactionManagement
+@EnableJpaRepositories
 public class SpringConfig {
     @Autowired
     private Environment env;
 
     @Bean
-    public DataSource dataSource()
-    {
+    public PlatformTransactionManager transactionManager() {
+        var txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory());
+        return txManager;
+    }
+
+    @Bean
+    public EntityManagerFactory entityManagerFactory() {
+        var vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        var factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setPackagesToScan("com.github.prekel.JavaSpring.Lab04.entity");
+        factory.setDataSource(dataSource());
+        factory.afterPropertiesSet();
+        return factory.getObject();
+    }
+
+    @Bean
+    public DataSource dataSource() {
         var dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("dataSource.driverClassName"));
         dataSource.setUrl(env.getProperty("dataSource.url"));
@@ -28,4 +55,5 @@ public class SpringConfig {
 
         return dataSource;
     }
+
 }
