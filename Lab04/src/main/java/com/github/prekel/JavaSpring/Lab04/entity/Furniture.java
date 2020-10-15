@@ -12,8 +12,7 @@ public class Furniture {
     private BigDecimal cost;
     private double height;
 
-    public Furniture(int id, String type, String model, String manufacturer, BigDecimal cost, double height) {
-        this.id = id;
+    public Furniture(String type, String model, String manufacturer, BigDecimal cost, double height) {
         this.type = type;
         this.model = model;
         this.manufacturer = manufacturer;
@@ -23,10 +22,6 @@ public class Furniture {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getType() {

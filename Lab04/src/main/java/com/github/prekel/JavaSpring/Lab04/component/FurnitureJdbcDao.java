@@ -23,7 +23,7 @@ public class FurnitureJdbcDao {
     }
 
     public int insert(Furniture furniture) {
-        return jdbcTemplate.update("insert into Furniture (id, type, model, manufacturer, cost, height) values (?,?,?,?,?,?)",
-                furniture.getId(), furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight());
+        return jdbcTemplate.update("insert into Furniture (id, type, model, manufacturer, cost, height) values (DEFAULT ,?,?,?,?,?)",
+                furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight());
     }
 }
