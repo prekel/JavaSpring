@@ -1,7 +1,6 @@
 package com.github.prekel.JavaSpring.Lab04.entity;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.StringJoiner;
 
 public class Furniture {
@@ -11,6 +10,10 @@ public class Furniture {
     private String manufacturer;
     private BigDecimal cost;
     private double height;
+
+    public Furniture() {
+
+    }
 
     public Furniture(String type, String model, String manufacturer, BigDecimal cost, double height) {
         this.type = type;
@@ -22,6 +25,10 @@ public class Furniture {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {
