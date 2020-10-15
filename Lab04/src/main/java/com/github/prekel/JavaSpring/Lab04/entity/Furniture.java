@@ -1,5 +1,6 @@
 package com.github.prekel.JavaSpring.Lab04.entity;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.StringJoiner;
 
@@ -8,8 +9,17 @@ public class Furniture {
     private String type;
     private String model;
     private String manufacturer;
-    private Currency cost;
+    private BigDecimal cost;
     private double height;
+
+    public Furniture(int id, String type, String model, String manufacturer, BigDecimal cost, double height) {
+        this.id = id;
+        this.type = type;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.cost = cost;
+        this.height = height;
+    }
 
     public int getId() {
         return id;
@@ -43,11 +53,11 @@ public class Furniture {
         this.manufacturer = manufacturer;
     }
 
-    public Currency getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(Currency cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
