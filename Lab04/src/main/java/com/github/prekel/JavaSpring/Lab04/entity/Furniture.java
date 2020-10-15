@@ -1,16 +1,13 @@
 package com.github.prekel.JavaSpring.Lab04.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.StringJoiner;
 
 @Entity
 public class Furniture {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String type;

@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -22,14 +23,15 @@ public class Program {
         }
 
         var rep = context.getBean("furnitureRepository", FurnitureRepository.class);
+
         var s = rep.findById(1);
+        s.get().setHeight(123123);
+        rep.save(s.get());
         var s2 = rep.findByType("Шкаф");
-        var s3 = rep.findCustomAll();
         rep.removeById(2);
         var s4 = rep.findAll(Sort.by(Sort.Direction.DESC, "cost"));
 
-        for (var i : s4)
-        {
+        for (var i : s4) {
             System.out.println(i);
         }
 
