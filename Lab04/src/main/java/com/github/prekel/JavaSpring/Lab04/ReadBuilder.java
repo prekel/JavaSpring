@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public class ReadBuilder<T> {
     private String message = "";
-    private Function<String, T> parser;
+    private Parser<T> parser;
     private Function<T, Boolean> checker;
     private BufferedReader reader;
 
@@ -19,7 +19,7 @@ public class ReadBuilder<T> {
     }
 
     public ReadBuilder<T> HasParser(Function<String, T> parser) {
-        this.parser = parser;
+        this.parser = parser::apply;
         return this;
     }
 
@@ -29,7 +29,7 @@ public class ReadBuilder<T> {
     }
 
     public T Read() {
-        return ReadWithCheck(message, parser, checker);
+        return ReadWithCheck(message, parser::parse, checker);
     }
 
     public <T> T ReadWithCheck(String message, Function<String, T> parser, Function<T, Boolean> checker) {
