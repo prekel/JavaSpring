@@ -43,18 +43,15 @@ public class Program implements CommandLineRunner {
         }
     }
 
-    private static int ReadIntWithCheck(String message, BufferedReader
-            reader, Function<Integer, Boolean> checker) {
+    private static int ReadIntWithCheck(String message, BufferedReader reader, Function<Integer, Boolean> checker) {
         return ReadWithCheck(message, reader, Integer::parseInt, checker);
     }
 
-    private static String ReadStringWithCheck(String message, BufferedReader
-            reader, Function<String, Boolean> checker) {
+    private static String ReadStringWithCheck(String message, BufferedReader reader, Function<String, Boolean> checker) {
         return ReadWithCheck(message, reader, s -> s, checker);
     }
 
-    private static double ReadDoubleWithCheck(String message, BufferedReader
-            reader, Function<Double, Boolean> checker) {
+    private static double ReadDoubleWithCheck(String message, BufferedReader reader, Function<Double, Boolean> checker) {
         return ReadWithCheck(message, reader, Double::parseDouble, checker);
     }
 
