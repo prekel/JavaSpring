@@ -80,9 +80,12 @@ public class Program implements CommandLineRunner {
         furniture.setType(reader.readStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()));
         furniture.setModel(reader.readStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()));
         furniture.setManufacturer(reader.readStringWithCheck("Введите производителя: ", string -> !string.isBlank()));
-        var roubles = reader.readIntWithCheck("Введите цену (целая часть, рубли): ", number -> 0 < number);
-        var cents = reader.readIntWithCheck("Введите цену (копейки): ", number -> 0 < number && number < 100);
-        furniture.setCost(new BigDecimal(roubles + "." + cents));
+        furniture.setCost(
+                new BigDecimal(
+                        reader.readIntWithCheck("Введите цену (целая часть, рубли): ", number1 -> 0 < number1) +
+                                "." + reader.readIntWithCheck("Введите цену (копейки): ", number2 -> 0 < number2 && number2 < 100)
+                )
+        );
         furniture.setHeight(reader.readDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000));
         return furniture;
     }
