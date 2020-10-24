@@ -42,7 +42,12 @@ public class Program implements CommandLineRunner {
         System.out.println("0 - Выход из программы");
 
         while (true) {
-            switch (reader.readIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
+            //reader.readIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)
+            switch (new ReadBuilder<Integer>()
+                    .HasMessage("Введите номер команды: ")
+                    .HasParser(Integer::parseInt)
+                    .HasChecker(number -> 0 <= number && number <= 6)
+                    .Read()) {
                 case 1 -> furnitureDao
                         .insert(furnitureFromInput());
                 case 2 -> furnitureDao
@@ -76,8 +81,7 @@ public class Program implements CommandLineRunner {
         }
     }
 
-    private Furniture furnitureFromInput()
-    {
+    private Furniture furnitureFromInput() {
         return new Furniture(
                 reader.readStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()),
                 reader.readStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()),

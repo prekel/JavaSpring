@@ -1,16 +1,26 @@
 package com.github.prekel.JavaSpring.Lab04;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.function.Function;
 
 public class ReadBuilder<T> {
     private String message = "";
-    private Parser<T> parser;
+    private Function<String, T> parser;
     private Function<T, Boolean> checker;
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
-    public ReadBuilder(ReaderWithCheck reader) {
+    public ReadBuilder() {
+        this(System.in);
+    }
 
+    public ReadBuilder(InputStream in) {
+        this(new BufferedReader(new InputStreamReader(in)));
+    }
+
+    public ReadBuilder(BufferedReader reader) {
+        this.reader = reader;
     }
 
     public ReadBuilder<T> HasMessage(String message) {
@@ -19,7 +29,7 @@ public class ReadBuilder<T> {
     }
 
     public ReadBuilder<T> HasParser(Function<String, T> parser) {
-        this.parser = parser::apply;
+        this.parser = parser;
         return this;
     }
 
@@ -29,10 +39,6 @@ public class ReadBuilder<T> {
     }
 
     public T Read() {
-        return ReadWithCheck(message, parser::parse, checker);
-    }
-
-    public <T> T ReadWithCheck(String message, Function<String, T> parser, Function<T, Boolean> checker) {
         while (true) {
             System.out.print(message);
             try {
