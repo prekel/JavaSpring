@@ -29,7 +29,7 @@ public class Program implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        furnitureDao = reader.ReadIntWithCheck("1 - JdbcTemplate, 2 - JpaRepository: ", number -> 1 <= number && number <= 2) == 1
+        furnitureDao = reader.readIntWithCheck("1 - JdbcTemplate, 2 - JpaRepository: ", number -> 1 <= number && number <= 2) == 1
                 ? context.getBean("furnitureJdbcDao", FurnitureJdbcDao.class)
                 : context.getBean("furnitureRepository", FurnitureRepository.class);
 
@@ -42,24 +42,32 @@ public class Program implements CommandLineRunner {
         System.out.println("0 - Выход из программы");
 
         while (true) {
-            switch (reader.ReadIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
+            switch (reader.readIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
                 case 1 -> furnitureDao
-                        .insert(FurnitureFromInput(new Furniture()));
+                        .insert(furnitureFromInput(new Furniture()));
                 case 2 -> furnitureDao
                         .findAll()
                         .forEach(System.out::println);
                 case 3 -> furnitureDao
-                        .findById(reader.ReadIntWithCheck("Введите Id для редактирования: ", id -> id > 0))
-                        .ifPresent(furniture -> furnitureDao.insert(FurnitureFromInput(furniture)));
+                        .findById(reader.readIntWithCheck("Введите Id для редактирования: ", id -> id > 0))
+                        .ifPresentOrElse(
+                                furniture -> furnitureDao.insert(furnitureFromInput(furniture)),
+                                () -> System.out.println("Нет такой записи")
+                        );
                 case 4 -> furnitureDao
-                        .findById(reader.ReadIntWithCheck("Введите Id для удаления: ", id -> id > 0))
-                        .ifPresent(furniture -> furnitureDao.removeById(furniture.getId()));
+                        .findById(reader.readIntWithCheck("Введите Id для удаления: ", id -> id > 0))
+                        .ifPresentOrElse(
+                                furniture -> furnitureDao.removeById(furniture.getId()),
+                                () -> System.out.println("Нет такой записи")
+                        );
                 case 5 -> furnitureDao
-                        .findByType(reader.ReadStringWithCheck("Введите тип для поиска: ", string -> !string.isBlank()))
+                        .findByType(reader.readStringWithCheck("Введите тип для поиска: ", string -> !string.isBlank()))
                         .forEach(System.out::println);
                 case 6 -> furnitureDao
-                        .findById(reader.ReadIntWithCheck("Введите Id записи: ", id -> id > 0))
-                        .ifPresent(System.out::println);
+                        .findById(reader.readIntWithCheck("Введите Id записи: ", id -> id > 0))
+                        .ifPresentOrElse(System.out::println,
+                                () -> System.out.println("Нет такой записи")
+                        );
                 case 0 -> {
                     return;
                 }
@@ -67,14 +75,14 @@ public class Program implements CommandLineRunner {
         }
     }
 
-    private Furniture FurnitureFromInput(Furniture furniture) {
-        furniture.setType(reader.ReadStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()));
-        furniture.setModel(reader.ReadStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()));
-        furniture.setManufacturer(reader.ReadStringWithCheck("Введите производителя: ", string -> !string.isBlank()));
-        var roubles = reader.ReadIntWithCheck("Введите цену (целая часть, рубли): ", number -> 0 < number);
-        var cents = reader.ReadIntWithCheck("Введите цену (копейки): ", number -> 0 < number && number < 100);
+    private Furniture furnitureFromInput(Furniture furniture) {
+        furniture.setType(reader.readStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()));
+        furniture.setModel(reader.readStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()));
+        furniture.setManufacturer(reader.readStringWithCheck("Введите производителя: ", string -> !string.isBlank()));
+        var roubles = reader.readIntWithCheck("Введите цену (целая часть, рубли): ", number -> 0 < number);
+        var cents = reader.readIntWithCheck("Введите цену (копейки): ", number -> 0 < number && number < 100);
         furniture.setCost(new BigDecimal(roubles + "." + cents));
-        furniture.setHeight(reader.ReadDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000));
+        furniture.setHeight(reader.readDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000));
         return furniture;
     }
 }

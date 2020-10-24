@@ -9,22 +9,22 @@ public class ReaderWithCheck {
     private final BufferedReader reader;
 
     public ReaderWithCheck() {
-        reader = new BufferedReader(new InputStreamReader(System.in));
+        this(System.in);
     }
 
     public ReaderWithCheck(InputStream in) {
-        reader = new BufferedReader(new InputStreamReader(in));
+        this(new BufferedReader(new InputStreamReader(in)));
     }
 
     public ReaderWithCheck(BufferedReader reader) {
         this.reader = reader;
     }
 
-    public int ReadIntWithCheck(String message, Function<Integer, Boolean> checker) {
-        return ReadWithCheck(message, Integer::parseInt, checker);
+    public int readIntWithCheck(String message, Function<Integer, Boolean> checker) {
+        return readWithCheck(message, Integer::parseInt, checker);
     }
 
-    public <T> T ReadWithCheck(String message, Function<String, T> parser, Function<T, Boolean> checker) {
+    public <T> T readWithCheck(String message, Function<String, T> parser, Function<T, Boolean> checker) {
         while (true) {
             System.out.print(message);
             try {
@@ -39,11 +39,11 @@ public class ReaderWithCheck {
         }
     }
 
-    public String ReadStringWithCheck(String message, Function<String, Boolean> checker) {
-        return ReadWithCheck(message, s -> s, checker);
+    public String readStringWithCheck(String message, Function<String, Boolean> checker) {
+        return readWithCheck(message, s -> s, checker);
     }
 
-    public double ReadDoubleWithCheck(String message, Function<Double, Boolean> checker) {
-        return ReadWithCheck(message, Double::parseDouble, checker);
+    public double readDoubleWithCheck(String message, Function<Double, Boolean> checker) {
+        return readWithCheck(message, Double::parseDouble, checker);
     }
 }
