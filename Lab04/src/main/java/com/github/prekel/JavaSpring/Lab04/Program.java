@@ -18,7 +18,6 @@ public class Program implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(Program.class);
     private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     private final SpringConfig config = context.getBean("springConfig", SpringConfig.class);
-    private final ReaderWithCheck reader = config.readerWithCheck();
     private FurnitureDao furnitureDao;
 
     public static void main(String[] args) {
@@ -29,7 +28,11 @@ public class Program implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        furnitureDao = reader.readIntWithCheck("1 - JdbcTemplate, 2 - JpaRepository: ", number -> 1 <= number && number <= 2) == 1
+        furnitureDao = new ReadWithCheckBuilder<Integer>()
+                .hasMessage("1 - JdbcTemplate, 2 - JpaRepository: ")
+                .hasChecker(number -> 1 <= number && number <= 2)
+                .hasParser(Integer::parseInt)
+                .readCycle() == 1
                 ? context.getBean("furnitureJdbcDao", FurnitureJdbcDao.class)
                 : context.getBean("furnitureRepository", FurnitureRepository.class);
 
@@ -42,29 +45,49 @@ public class Program implements CommandLineRunner {
         System.out.println("0 - Выход из программы");
 
         while (true) {
-            switch (reader.readIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
+            switch (new ReadWithCheckBuilder<Integer>()
+                    .hasMessage("Введите номер команды: ")
+                    .hasParser(Integer::parseInt)
+                    .hasChecker(number -> 0 <= number && number <= 6)
+                    .readCycle()) {
                 case 1 -> furnitureDao
                         .insert(furnitureFromInput());
                 case 2 -> furnitureDao
                         .findAll()
                         .forEach(System.out::println);
                 case 3 -> furnitureDao
-                        .findById(reader.readIntWithCheck("Введите Id для редактирования: ", id -> id > 0))
+                        .findById(new ReadWithCheckBuilder<Integer>()
+                                .hasMessage("Введите Id для редактирования: ")
+                                .hasChecker(id -> id > 0)
+                                .hasParser(Integer::parseInt)
+                                .readCycle())
                         .ifPresentOrElse(
                                 furniture -> furnitureDao.updateById(furniture.getId(), furnitureFromInput()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> furnitureDao
-                        .findById(reader.readIntWithCheck("Введите Id для удаления: ", id -> id > 0))
+                        .findById(new ReadWithCheckBuilder<Integer>()
+                                .hasMessage("Введите Id для удаления: ")
+                                .hasChecker(id -> id > 0)
+                                .hasParser(Integer::parseInt)
+                                .readCycle())
                         .ifPresentOrElse(
                                 furniture -> furnitureDao.removeById(furniture.getId()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 5 -> furnitureDao
-                        .findByType(reader.readStringWithCheck("Введите тип для поиска: ", string -> !string.isBlank()))
+                        .findByType(new ReadWithCheckBuilder<String>()
+                                .hasMessage("Введите тип для поиска: ")
+                                .hasChecker(string -> !string.isBlank())
+                                .readCycle()
+                        )
                         .forEach(System.out::println);
                 case 6 -> furnitureDao
-                        .findById(reader.readIntWithCheck("Введите Id записи: ", id -> id > 0))
+                        .findById(new ReadWithCheckBuilder<Integer>()
+                                .hasMessage("Введите Id записи: ")
+                                .hasChecker(id -> id > 0)
+                                .hasParser(Integer::parseInt)
+                                .readCycle())
                         .ifPresentOrElse(
                                 System.out::println,
                                 () -> System.out.println("Нет такой записи")
@@ -76,15 +99,35 @@ public class Program implements CommandLineRunner {
         }
     }
 
-    private Furniture furnitureFromInput()
-    {
+    private Furniture furnitureFromInput() {
         return new Furniture(
-                reader.readStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()),
-                reader.readStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()),
-                reader.readStringWithCheck("Введите производителя: ", string -> !string.isBlank()),
-                BigDecimal.valueOf(reader.readIntWithCheck("Введите цену (целая часть, рубли): ", number1 -> 0 < number1) +
-                        reader.readIntWithCheck("Введите цену (копейки): ", number2 -> 0 < number2 && number2 < 100) / 100.0),
-                reader.readDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000)
+                new ReadWithCheckBuilder<String>()
+                        .hasMessage("Введите тип: ")
+                        .hasChecker(string -> !string.isBlank())
+                        .readCycle(),
+                new ReadWithCheckBuilder<String>()
+                        .hasMessage("Введите модель: ")
+                        .hasChecker(string -> !string.isBlank())
+                        .readCycle(),
+                new ReadWithCheckBuilder<String>()
+                        .hasMessage("Введите производителя: ")
+                        .hasChecker(string -> !string.isBlank())
+                        .readCycle(),
+                BigDecimal.valueOf(new ReadWithCheckBuilder<Integer>()
+                        .hasMessage("Введите цену (целая часть, рубли): ")
+                        .hasChecker(number -> 0 < number)
+                        .hasParser(Integer::parseInt)
+                        .readCycle() +
+                        new ReadWithCheckBuilder<Integer>()
+                                .hasMessage("Введите цену (копейки): ")
+                                .hasChecker(number -> 0 < number && number < 100)
+                                .hasParser(Integer::parseInt)
+                                .readCycle() / 100.0),
+                new ReadWithCheckBuilder<Double>()
+                        .hasMessage("Введите высоту (сантиметры): ")
+                        .hasChecker(number -> 0 < number && number < 10000)
+                        .hasParser(Double::parseDouble)
+                        .readCycle()
         );
     }
 }
