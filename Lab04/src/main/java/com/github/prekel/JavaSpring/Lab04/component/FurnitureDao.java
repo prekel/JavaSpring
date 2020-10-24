@@ -9,7 +9,7 @@ public interface FurnitureDao {
     List<Furniture> findAll();
     List<Furniture> findByType(String type);
     Optional<Furniture> findById(int id);
-    void update(Furniture furniture);
+    void updateById(int id, Furniture furniture);
     void insert(Furniture furniture);
     void removeById(int id);
 }

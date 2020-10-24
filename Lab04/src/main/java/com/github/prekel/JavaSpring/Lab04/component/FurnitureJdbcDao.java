@@ -36,9 +36,9 @@ public class FurnitureJdbcDao implements FurnitureDao {
     }
 
     @Override
-    public void update(Furniture furniture) {
+    public void updateById(int id, Furniture furniture) {
         jdbcTemplate.update("UPDATE Furniture SET type = ?, model = ?, manufacturer = ?, cost = ?, height = ? WHERE id = ?",
-                furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight(), furniture.getId());
+                furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight(), id);
     }
 
     @Override

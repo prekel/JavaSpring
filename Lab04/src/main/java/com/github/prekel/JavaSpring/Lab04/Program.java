@@ -44,14 +44,14 @@ public class Program implements CommandLineRunner {
         while (true) {
             switch (reader.readIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
                 case 1 -> furnitureDao
-                        .insert(furnitureFromInput(new Furniture()));
+                        .insert(furnitureFromInput());
                 case 2 -> furnitureDao
                         .findAll()
                         .forEach(System.out::println);
                 case 3 -> furnitureDao
                         .findById(reader.readIntWithCheck("Введите Id для редактирования: ", id -> id > 0))
                         .ifPresentOrElse(
-                                furniture -> furnitureDao.update(furnitureFromInput(furniture)),
+                                furniture -> furnitureDao.updateById(furniture.getId(), furnitureFromInput()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> furnitureDao
@@ -76,17 +76,15 @@ public class Program implements CommandLineRunner {
         }
     }
 
-    private Furniture furnitureFromInput(Furniture furniture) {
-        furniture.setType(reader.readStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()));
-        furniture.setModel(reader.readStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()));
-        furniture.setManufacturer(reader.readStringWithCheck("Введите производителя: ", string -> !string.isBlank()));
-        furniture.setCost(
-                new BigDecimal(
-                        reader.readIntWithCheck("Введите цену (целая часть, рубли): ", number1 -> 0 < number1) +
-                                "." + reader.readIntWithCheck("Введите цену (копейки): ", number2 -> 0 < number2 && number2 < 100)
-                )
+    private Furniture furnitureFromInput()
+    {
+        return new Furniture(
+                reader.readStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()),
+                reader.readStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()),
+                reader.readStringWithCheck("Введите производителя: ", string -> !string.isBlank()),
+                BigDecimal.valueOf(reader.readIntWithCheck("Введите цену (целая часть, рубли): ", number1 -> 0 < number1) +
+                        reader.readIntWithCheck("Введите цену (копейки): ", number2 -> 0 < number2 && number2 < 100) / 100.0),
+                reader.readDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000)
         );
-        furniture.setHeight(reader.readDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000));
-        return furniture;
     }
 }

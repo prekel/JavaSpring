@@ -17,7 +17,8 @@ public interface FurnitureRepository extends JpaRepository<Furniture, Integer>, 
 
     Optional<Furniture> findById(int id);
 
-    default void update(Furniture furniture) {
+    default void updateById(int id, Furniture furniture) {
+        furniture.setId(id);
         save(furniture);
     }
 
