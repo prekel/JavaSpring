@@ -42,6 +42,11 @@ public class Program implements CommandLineRunner {
         System.out.println("0 - Выход из программы");
 
         while (true) {
+            var t = new ReadBuilder<Double>(reader)
+                    .HasMessage("Введите номер команды1: ")
+                    .HasChecker(number -> 0 <= number && number <= 6)
+                    .HasParser(Double::parseDouble)
+                    .Read();
             switch (reader.ReadIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
                 case 1 -> furnitureDao
                         .insert(FurnitureFromInput(new Furniture()));
