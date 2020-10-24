@@ -61,7 +61,6 @@ public class Program implements CommandLineRunner {
                         .findById(reader.ReadIntWithCheck("Введите Id записи: ", id -> id > 0))
                         .ifPresent(System.out::println);
                 case 0 -> {
-                    System.out.println();
                     return;
                 }
             }
