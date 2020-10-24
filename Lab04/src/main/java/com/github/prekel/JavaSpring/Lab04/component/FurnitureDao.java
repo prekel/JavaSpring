@@ -11,4 +11,5 @@ public interface FurnitureDao {
     Optional<Furniture> findById(int id);
     void update(Furniture furniture);
     void insert(Furniture furniture);
+    void removeById(int id);
 }

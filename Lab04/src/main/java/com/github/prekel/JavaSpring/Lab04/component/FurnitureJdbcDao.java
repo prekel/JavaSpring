@@ -21,29 +21,34 @@ public class FurnitureJdbcDao implements FurnitureDao {
 
     @Override
     public List<Furniture> findAll() {
-        return jdbcTemplate.query("select * from Furniture", new BeanPropertyRowMapper<>(Furniture.class));
+        return jdbcTemplate.query("SELECT * FROM Furniture", new BeanPropertyRowMapper<>(Furniture.class));
     }
 
     @Override
     public List<Furniture> findByType(String type) {
-        return jdbcTemplate.query("select * from Furniture where type = ?", new Object[]{type}, new BeanPropertyRowMapper<>(Furniture.class));
+        return jdbcTemplate.query("SELECT * FROM Furniture WHERE type = ?", new Object[]{type}, new BeanPropertyRowMapper<>(Furniture.class));
     }
 
     @Override
     public Optional<Furniture> findById(int id) {
-        var ret = jdbcTemplate.query("select * from Furniture where id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Furniture.class));
+        var ret = jdbcTemplate.query("SELECT * FROM Furniture WHERE id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Furniture.class));
         return ret.stream().findFirst();
     }
 
     @Override
     public void update(Furniture furniture) {
-        jdbcTemplate.update("update Furniture type = ?, model = ?, manufacturer = ?, cost = ?, height = ? where id = ?",
+        jdbcTemplate.update("UPDATE Furniture type = ?, model = ?, manufacturer = ?, cost = ?, height = ? WHERE id = ?",
                 furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight(), furniture.getId());
     }
 
     @Override
     public void insert(Furniture furniture) {
-        jdbcTemplate.update("insert into Furniture (id, type, model, manufacturer, cost, height) values (DEFAULT ,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO Furniture (id, type, model, manufacturer, cost, height) VALUES (DEFAULT,?,?,?,?,?)",
                 furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight());
+    }
+
+    @Override
+    public void removeById(int id) {
+        jdbcTemplate.update("DELETE FROM Furniture WHERE id = ?", id);
     }
 }
