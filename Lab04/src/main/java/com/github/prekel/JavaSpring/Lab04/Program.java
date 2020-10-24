@@ -44,10 +44,8 @@ public class Program implements CommandLineRunner {
         System.out.println("6 - Вывести запись из таблицы БД по Id");
         System.out.println("0 - Выход из программы");
 
-        var needBreak = false;
-        while (!needBreak) {
-            var cmdNumber = ReadIntWithCheck("Введите номер команды: ", reader, number -> 0 <= number && number <= 6);
-            switch (cmdNumber) {
+        while (true) {
+            switch (ReadIntWithCheck("Введите номер команды: ", reader, number -> 0 <= number && number <= 6)) {
                 case 1 -> furnitureDao
                         .insert(FurnitureFromInput(reader, new Furniture()));
                 case 2 -> furnitureDao
@@ -65,10 +63,12 @@ public class Program implements CommandLineRunner {
                 case 6 -> furnitureDao
                         .findById(ReadIntWithCheck("Введите Id записи: ", reader, id -> id > 0))
                         .ifPresent(System.out::println);
-                case 0 -> needBreak = true;
+                case 0 -> {
+                    System.out.println();
+                    return;
+                }
             }
         }
-        System.out.println();
     }
 
     private Furniture FurnitureFromInput(BufferedReader reader, Furniture furniture) {
@@ -80,6 +80,10 @@ public class Program implements CommandLineRunner {
         furniture.setCost(new BigDecimal(roubles + "." + cents));
         furniture.setHeight(ReadDoubleWithCheck("Введите высоту (сантиметры): ", reader, number -> 0 < number && number < 10000));
         return furniture;
+    }
+
+    private static boolean CheckString(String string) {
+        return string != null && !string.isBlank();
     }
 
     private static int ReadIntWithCheck(String message, BufferedReader
@@ -112,10 +116,6 @@ public class Program implements CommandLineRunner {
                 System.err.println(e.getMessage());
             }
         }
-    }
-
-    private static boolean CheckString(String string) {
-        return string != null && !string.isBlank();
     }
 
     private static double ReadDoubleWithCheck(String message, BufferedReader
