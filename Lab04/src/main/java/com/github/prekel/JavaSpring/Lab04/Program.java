@@ -11,15 +11,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.util.function.Function;
 
 @SpringBootApplication
 public class Program implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(Program.class);
     private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+    private final SpringConfig config = context.getBean("springConfig", SpringConfig.class);
+    private final ReaderWithCheck reader = config.readerWithCheck();
     private FurnitureDao furnitureDao;
 
     public static void main(String[] args) {
@@ -28,38 +27,9 @@ public class Program implements CommandLineRunner {
         LOG.info("Ended");
     }
 
-    private static <T> T ReadWithCheck(String message, BufferedReader reader, Function<String, T> parser, Function<T, Boolean> checker) {
-        while (true) {
-            try {
-                System.out.print(message);
-                var parsed = parser.apply(reader.readLine());
-                if (!checker.apply(parsed)) {
-                    throw new Exception("Не в промежутке или пустая строка");
-                }
-                return parsed;
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    private static int ReadIntWithCheck(String message, BufferedReader reader, Function<Integer, Boolean> checker) {
-        return ReadWithCheck(message, reader, Integer::parseInt, checker);
-    }
-
-    private static String ReadStringWithCheck(String message, BufferedReader reader, Function<String, Boolean> checker) {
-        return ReadWithCheck(message, reader, s -> s, checker);
-    }
-
-    private static double ReadDoubleWithCheck(String message, BufferedReader reader, Function<Double, Boolean> checker) {
-        return ReadWithCheck(message, reader, Double::parseDouble, checker);
-    }
-
     @Override
     public void run(String... args) throws Exception {
-        var reader = new BufferedReader(new InputStreamReader(System.in));
-
-        furnitureDao = ReadIntWithCheck("1 - JdbcTemplate, 2 - JpaRepository: ", reader, number -> 1 <= number && number <= 2) == 1
+        furnitureDao = reader.ReadIntWithCheck("1 - JdbcTemplate, 2 - JpaRepository: ", number -> 1 <= number && number <= 2) == 1
                 ? context.getBean("furnitureJdbcDao", FurnitureJdbcDao.class)
                 : context.getBean("furnitureRepository", FurnitureRepository.class);
 
@@ -72,23 +42,23 @@ public class Program implements CommandLineRunner {
         System.out.println("0 - Выход из программы");
 
         while (true) {
-            switch (ReadIntWithCheck("Введите номер команды: ", reader, number -> 0 <= number && number <= 6)) {
+            switch (reader.ReadIntWithCheck("Введите номер команды: ", number -> 0 <= number && number <= 6)) {
                 case 1 -> furnitureDao
-                        .insert(FurnitureFromInput(reader, new Furniture()));
+                        .insert(FurnitureFromInput(new Furniture()));
                 case 2 -> furnitureDao
                         .findAll()
                         .forEach(System.out::println);
                 case 3 -> furnitureDao
-                        .findById(ReadIntWithCheck("Введите Id для редактирования: ", reader, id -> id > 0))
-                        .ifPresent(furniture -> furnitureDao.insert(FurnitureFromInput(reader, furniture)));
+                        .findById(reader.ReadIntWithCheck("Введите Id для редактирования: ", id -> id > 0))
+                        .ifPresent(furniture -> furnitureDao.insert(FurnitureFromInput(furniture)));
                 case 4 -> furnitureDao
-                        .findById(ReadIntWithCheck("Введите Id для удаления: ", reader, id -> id > 0))
+                        .findById(reader.ReadIntWithCheck("Введите Id для удаления: ", id -> id > 0))
                         .ifPresent(furniture -> furnitureDao.removeById(furniture.getId()));
                 case 5 -> furnitureDao
-                        .findByType(ReadStringWithCheck("Введите тип для поиска: ", reader, string -> !string.isBlank()))
+                        .findByType(reader.ReadStringWithCheck("Введите тип для поиска: ", string -> !string.isBlank()))
                         .forEach(System.out::println);
                 case 6 -> furnitureDao
-                        .findById(ReadIntWithCheck("Введите Id записи: ", reader, id -> id > 0))
+                        .findById(reader.ReadIntWithCheck("Введите Id записи: ", id -> id > 0))
                         .ifPresent(System.out::println);
                 case 0 -> {
                     System.out.println();
@@ -98,14 +68,14 @@ public class Program implements CommandLineRunner {
         }
     }
 
-    private Furniture FurnitureFromInput(BufferedReader reader, Furniture furniture) {
-        furniture.setType(ReadStringWithCheck("Введите тип: ", reader, string2 -> !string2.isBlank()));
-        furniture.setModel(ReadStringWithCheck("Введите модель: ", reader, string1 -> !string1.isBlank()));
-        furniture.setManufacturer(ReadStringWithCheck("Введите производителя: ", reader, string -> !string.isBlank()));
-        var roubles = ReadIntWithCheck("Введите цену (целая часть, рубли): ", reader, number -> 0 < number);
-        var cents = ReadIntWithCheck("Введите цену (копейки): ", reader, number -> 0 < number && number < 100);
+    private Furniture FurnitureFromInput(Furniture furniture) {
+        furniture.setType(reader.ReadStringWithCheck("Введите тип: ", string2 -> !string2.isBlank()));
+        furniture.setModel(reader.ReadStringWithCheck("Введите модель: ", string1 -> !string1.isBlank()));
+        furniture.setManufacturer(reader.ReadStringWithCheck("Введите производителя: ", string -> !string.isBlank()));
+        var roubles = reader.ReadIntWithCheck("Введите цену (целая часть, рубли): ", number -> 0 < number);
+        var cents = reader.ReadIntWithCheck("Введите цену (копейки): ", number -> 0 < number && number < 100);
         furniture.setCost(new BigDecimal(roubles + "." + cents));
-        furniture.setHeight(ReadDoubleWithCheck("Введите высоту (сантиметры): ", reader, number -> 0 < number && number < 10000));
+        furniture.setHeight(reader.ReadDoubleWithCheck("Введите высоту (сантиметры): ", number -> 0 < number && number < 10000));
         return furniture;
     }
 }

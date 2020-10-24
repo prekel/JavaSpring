@@ -56,4 +56,8 @@ public class SpringConfig {
         return dataSource;
     }
 
+    @Bean
+    public ReaderWithCheck readerWithCheck() {
+        return new ReaderWithCheck();
+    }
 }
