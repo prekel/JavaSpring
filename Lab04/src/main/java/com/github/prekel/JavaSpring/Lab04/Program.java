@@ -28,6 +28,36 @@ public class Program implements CommandLineRunner {
         LOG.info("Ended");
     }
 
+    private static <T> T ReadWithCheck(String message, BufferedReader reader, Function<String, T> parser, Function<T, Boolean> checker) {
+        while (true) {
+            try {
+                System.out.print(message);
+                var parsed = parser.apply(reader.readLine());
+                if (!checker.apply(parsed)) {
+                    throw new Exception("Не в промежутке или пустая строка");
+                }
+                return parsed;
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+
+    private static int ReadIntWithCheck(String message, BufferedReader
+            reader, Function<Integer, Boolean> checker) {
+        return ReadWithCheck(message, reader, Integer::parseInt, checker);
+    }
+
+    private static String ReadStringWithCheck(String message, BufferedReader
+            reader, Function<String, Boolean> checker) {
+        return ReadWithCheck(message, reader, s -> s, checker);
+    }
+
+    private static double ReadDoubleWithCheck(String message, BufferedReader
+            reader, Function<Double, Boolean> checker) {
+        return ReadWithCheck(message, reader, Double::parseDouble, checker);
+    }
+
     @Override
     public void run(String... args) throws Exception {
         var reader = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +88,7 @@ public class Program implements CommandLineRunner {
                         .findById(ReadIntWithCheck("Введите Id для удаления: ", reader, id -> id > 0))
                         .ifPresent(furniture -> furnitureDao.removeById(furniture.getId()));
                 case 5 -> furnitureDao
-                        .findByType(ReadStringWithCheck("Введите тип для поиска: ", reader, Program::CheckString))
+                        .findByType(ReadStringWithCheck("Введите тип для поиска: ", reader, string -> !string.isBlank()))
                         .forEach(System.out::println);
                 case 6 -> furnitureDao
                         .findById(ReadIntWithCheck("Введите Id записи: ", reader, id -> id > 0))
@@ -72,65 +102,13 @@ public class Program implements CommandLineRunner {
     }
 
     private Furniture FurnitureFromInput(BufferedReader reader, Furniture furniture) {
-        furniture.setType(ReadStringWithCheck("Введите тип: ", reader, Program::CheckString));
-        furniture.setModel(ReadStringWithCheck("Введите модель: ", reader, Program::CheckString));
-        furniture.setManufacturer(ReadStringWithCheck("Введите производителя: ", reader, Program::CheckString));
+        furniture.setType(ReadStringWithCheck("Введите тип: ", reader, string2 -> !string2.isBlank()));
+        furniture.setModel(ReadStringWithCheck("Введите модель: ", reader, string1 -> !string1.isBlank()));
+        furniture.setManufacturer(ReadStringWithCheck("Введите производителя: ", reader, string -> !string.isBlank()));
         var roubles = ReadIntWithCheck("Введите цену (целая часть, рубли): ", reader, number -> 0 < number);
         var cents = ReadIntWithCheck("Введите цену (копейки): ", reader, number -> 0 < number && number < 100);
         furniture.setCost(new BigDecimal(roubles + "." + cents));
         furniture.setHeight(ReadDoubleWithCheck("Введите высоту (сантиметры): ", reader, number -> 0 < number && number < 10000));
         return furniture;
-    }
-
-    private static boolean CheckString(String string) {
-        return string != null && !string.isBlank();
-    }
-
-    private static int ReadIntWithCheck(String message, BufferedReader
-            reader, Function<Integer, Boolean> checker) {
-        while (true) {
-            try {
-                System.out.print(message);
-                var number = Integer.parseInt(reader.readLine());
-                if (!checker.apply(number)) {
-                    throw new Exception("Не в промежутке");
-                }
-                return number;
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    private static String ReadStringWithCheck(String message, BufferedReader
-            reader, Function<String, Boolean> checker) {
-        while (true) {
-            try {
-                System.out.print(message);
-                var string = reader.readLine();
-                if (!checker.apply(string)) {
-                    throw new Exception("Пустая строка");
-                }
-                return string;
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    private static double ReadDoubleWithCheck(String message, BufferedReader
-            reader, Function<Double, Boolean> checker) {
-        while (true) {
-            try {
-                System.out.print(message);
-                var number = Double.parseDouble(reader.readLine());
-                if (!checker.apply(number)) {
-                    throw new Exception("Не в промежутке");
-                }
-                return number;
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
     }
 }
