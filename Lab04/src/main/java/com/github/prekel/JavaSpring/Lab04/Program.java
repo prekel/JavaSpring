@@ -51,7 +51,7 @@ public class Program implements CommandLineRunner {
                 case 3 -> furnitureDao
                         .findById(reader.readIntWithCheck("Введите Id для редактирования: ", id -> id > 0))
                         .ifPresentOrElse(
-                                furniture -> furnitureDao.insert(furnitureFromInput(furniture)),
+                                furniture -> furnitureDao.update(furnitureFromInput(furniture)),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> furnitureDao
@@ -65,7 +65,8 @@ public class Program implements CommandLineRunner {
                         .forEach(System.out::println);
                 case 6 -> furnitureDao
                         .findById(reader.readIntWithCheck("Введите Id записи: ", id -> id > 0))
-                        .ifPresentOrElse(System.out::println,
+                        .ifPresentOrElse(
+                                System.out::println,
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 0 -> {
