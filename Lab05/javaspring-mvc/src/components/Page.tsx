@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 
 export const Page: React.FunctionComponent = () => {
   return (
-    <Router>
+    <Router basename="JavaSpring">
       <Container>
         <NavBar />
 

@@ -10,19 +10,19 @@ export const NavBar: React.FunctionComponent = () => {
       </LinkContainer>
       <Navbar.Collapse>
         <Nav>
-          <LinkContainer to="/furnitures">
+          <LinkContainer to="./furnitures">
             <Nav.Link>Список всех</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/furnitures-by-type">
+          <LinkContainer to="./furnitures-by-type">
             <Nav.Link>Список по типу</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/add">
+          <LinkContainer to="./add">
             <Nav.Link>Добавить</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/update">
+          <LinkContainer to="./update">
             <Nav.Link>Изменить</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/delete">
+          <LinkContainer to="./delete">
             <Nav.Link>Удалить</Nav.Link>
           </LinkContainer>
         </Nav>
