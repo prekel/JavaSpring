@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useParams } from "react-router";
+import { Switch, Route } from "react-router";
 
 import { Furnitures } from "./Furnitures";
 import { AddFurniture } from "./AddFurniture";
@@ -27,18 +27,10 @@ export const MainSwitch: React.FunctionComponent = () => {
         <Route path="/add">
           <AddFurniture />
         </Route>
-        <Route path="/:par">
-          <Dgf />
-        </Route>
         <Route path="/">
           <Home />
         </Route>
       </Switch>
     </>
   );
-};
-
-const Dgf: React.FunctionComponent = () => {
-  let { par } = useParams<{ par: string }>();
-  return <p>{par}</p>;
 };

@@ -12,7 +12,7 @@ interface Day {
   place: string;
 }
 
-export function MyComponent() {
+export const MyComponent: React.FunctionComponent = () => {
   const [error, setError] = useState<Error | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<Day[]>([]);
@@ -25,14 +25,16 @@ export function MyComponent() {
       "https://edu.sfu-kras.ru/api/timetable/get&target=%D0%9A%D0%9818-16%D0%B1"
     )
       .then((res) => res.json())
-      .then((result) => {
-        setIsLoaded(true);
-        setItems(result.timetable);
-      })
-      .catch((error: Error) => {
-        setIsLoaded(true);
-        setError(error);
-      });
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result.timetable);
+        },
+        (error: Error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
   }, []);
 
   if (error) {
@@ -49,14 +51,16 @@ export function MyComponent() {
             <th>Преподаватель</th>
           </tr>
         </thead>
-        {items.map((item) => (
-          <tr>
-            <td>{item.day}</td>
-            <td>{item.subject}</td>
-            <td>{item.teacher}</td>
-          </tr>
-        ))}
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.day + " " + item.week + " " + item.time}>
+              <td>{item.day}</td>
+              <td>{item.subject}</td>
+              <td>{item.teacher}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
     );
   }
-}
+};
