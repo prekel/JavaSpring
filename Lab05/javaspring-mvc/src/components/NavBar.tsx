@@ -8,7 +8,10 @@ export const NavBar: React.FunctionComponent = () => {
       <LinkContainer to="/">
         <Navbar.Brand>javaspring-mvc</Navbar.Brand>
       </LinkContainer>
-      <Navbar.Collapse>
+      <Navbar.Toggle aria-controls="basic-navbar-nav">
+
+      </Navbar.Toggle>
+      <Navbar.Collapse id="basic-navbar-nav">
         <Nav>
           <LinkContainer to="/furnitures">
             <Nav.Link>Список всех</Nav.Link>
