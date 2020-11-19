@@ -5,6 +5,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="f">asd</p>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Model</th>
+        <th>Manufacturer</th>
+        <th>Cost</th>
+        <th>Height</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="furniture, itemStat : *{furnitures}">
+        <td><p th:text="*{furniture.getId()}"></p></td>
+        <td><p th:text="*{furniture.getType()}"></p></td>
+        <td><p th:text="*{furniture.getModel()}"></p></td>
+        <td><p th:text="*{furniture.getManufacturer()}"></p></td>
+        <td><p th:text="*{furniture.getCost()}"></p></td>
+        <td><p th:text="*{furniture.getHeight()}"></p></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
