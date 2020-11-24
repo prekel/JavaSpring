@@ -2,6 +2,8 @@ package com.github.prekel.JavaSpring.Lab05.component;
 
 import com.github.prekel.JavaSpring.Lab05.data.FurnitureDao;
 import com.github.prekel.JavaSpring.Lab05.entity.Furniture;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public class FurnitureForm {
     @NotNull(message = "Поле не должно быть пустым")
-    @PositiveOrZero(message = "Должно быть положительным")
+    @PositiveOrZero(message = "Должно быть не отрицательным")
     private int id;
     @NotBlank(message = "Поле не должно быть пустым")
     private String type;

@@ -51,4 +51,9 @@ public class FurnitureJdbcDao implements FurnitureDao {
     public void removeById(int id) {
         jdbcTemplate.update("DELETE FROM Furniture WHERE id = ?", id);
     }
+
+    @Override
+    public long count() {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM Furniture", Long.class);
+    }
 }

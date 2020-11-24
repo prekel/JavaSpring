@@ -38,11 +38,6 @@ public class Program {
         LOG.info("Started");
         SpringApplication.run(Program.class, args);
 
-//        var context = new AnnotationConfigApplicationContext(Program.class);
-//        for (String beanName : context.getBeanDefinitionNames()) {
-//            System.out.println(beanName);
-//        }
-
         LOG.info("Ended");
     }
 

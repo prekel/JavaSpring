@@ -12,4 +12,5 @@ public interface FurnitureDao {
     void updateById(int id, Furniture furniture);
     int insert(Furniture furniture);
     void removeById(int id);
+    long count();
 }

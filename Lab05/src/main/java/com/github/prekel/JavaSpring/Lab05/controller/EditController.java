@@ -23,18 +23,18 @@ public class EditController {
     }
 
     @GetMapping
-    public String createStudent(Model model) {
+    public String getForm(Model model) {
         model.addAttribute("furnitureForm", new FurnitureForm());
         return "edit";
     }
 
     @PostMapping
-    public String greetingSubmit(@Valid FurnitureForm furnitureForm, BindingResult bindingResult, Model model) {
+    public String editByForm(@Valid FurnitureForm furnitureForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
         if (furnitureDao.findById(furnitureForm.getId()).isEmpty()) {
-            model.addAttribute("notFound", "Не найдено");
+            model.addAttribute("notFound", true);
             return "edit";
         }
         furnitureDao.updateById(furnitureForm.getId(), new Furniture(furnitureForm.getType(), furnitureForm.getModel(),
