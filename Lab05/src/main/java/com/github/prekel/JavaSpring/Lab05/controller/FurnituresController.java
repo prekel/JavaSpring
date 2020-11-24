@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/furnitures")
@@ -24,12 +25,20 @@ public class FurnituresController {
 //        return "furnitures";
 //    }
 
+
+    @GetMapping("/all")
+    public String furnitures(Model model) {
+        var furnitures= furnitureDao.findAll();
+        model.addAttribute("furnitures", furnitures);
+        return "furnitures";
+    }
+
     @GetMapping
     public String furnitures(Optional<Integer> id, Model model) {
-        id.ifPresentOrElse(
-                id1 -> model.addAttribute("furnitures", furnitureDao.findById(id1).stream().toArray()),
-                () -> model.addAttribute("furnitures", furnitureDao.findAll())
-        );
+        var furnitures = id
+                .map(integer -> furnitureDao.findById(integer).stream().collect(Collectors.toList()))
+                .orElseGet(furnitureDao::findAll);
+        model.addAttribute("furnitures", furnitures);
         return "furnitures";
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Form</h1>
+<form class="form" th:object="${furnitureForm}" method="post">
+    <label>
+        <input type="number" name="id" th:field="*{id}" placeholder="Id"/>
+    </label>
+    <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id Error</span>
+    <label>
+        <input type="text" name="type" th:field="*{type}" placeholder="type"/>
+    </label>
+    <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type Error</span>
+    <label>
+        <input type="text" name="model" th:field="*{model}" placeholder="model"/>
+    </label>
+    <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}">model Error</span>
+    <label>
+        <input type="text" name="manufacturer" th:field="*{manufacturer}" placeholder="manufacturer"/>
+    </label>
+    <span th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}">Name Error</span>
+    <label>
+        <input type="number" name="cost" th:field="*{cost}" placeholder="cost"/>
+    </label>
+    <span th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">cost Error</span>
+    <label>
+        <input type="number" name="height" th:field="*{height}" placeholder="height"/>
+    </label>
+    <span th:if="${#fields.hasErrors('height')}" th:errors="*{height}">height Error</span>
+    <div class="buttons">
+        <button type="submit">Add furniture</button>
+        <button type="reset">Reset</button>
+    </div>
+</form>
+
+</body>
+</html>
