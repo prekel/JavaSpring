@@ -3,6 +3,7 @@ package com.github.prekel.JavaSpring.Lab05.controller;
 import com.github.prekel.JavaSpring.Lab05.data.FurnitureDao;
 import com.github.prekel.JavaSpring.Lab05.entity.Furniture;
 import com.github.prekel.JavaSpring.Lab05.form.FurnitureForm;
+import com.github.prekel.JavaSpring.Lab05.form.IdForm;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,31 @@ public class EditController {
 
     @GetMapping
     public String getForm(Model model) {
+        model.addAttribute("idForm", new IdForm());
         model.addAttribute("furnitureForm", new FurnitureForm());
+        return "edit";
+    }
+
+    @GetMapping(params = "id")
+    public String fillById(@Valid IdForm idForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("furnitureForm", new FurnitureForm());
+            return "edit";
+        }
+        if (furnitureDao.findById(idForm.getId()).isEmpty()) {
+            model.addAttribute("notFound", true);
+            model.addAttribute("furnitureForm", new FurnitureForm());
+            return "edit";
+        }
+        var form = new FurnitureForm();
+        form.setId(idForm.getId());
+        var f = furnitureDao.findById(idForm.getId()).get();
+        form.setType(f.getType());
+        form.setModel(f.getModel());
+        form.setManufacturer(f.getManufacturer());
+        form.setCost(f.getCost());
+        form.setHeight(f.getHeight());
+        model.addAttribute("furnitureForm", form);
         return "edit";
     }
 
