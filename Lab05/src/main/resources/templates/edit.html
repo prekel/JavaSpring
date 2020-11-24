@@ -1,12 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org" lang="ru">
 <head>
-    <title>Добавить мебель</title>
+    <title>Изменить мебель</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<header><h1>Добавить мебель</h1></header>
+<header><h1>Изменить мебель</h1></header>
+<p th:if="${notFound}" th:text="${notFound}">notFound</p>
 <form class="form" th:object="${furnitureForm}" method="post">
+    <div>
+        <p>Идентификатор</p>
+        <label>
+            <input type="number" name="id" th:field="*{id}" placeholder="id"/>
+        </label>
+        <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id error</span>
+    </div>
     <div>
         <p>Тип</p>
         <label>

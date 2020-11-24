@@ -1,16 +1,15 @@
-package com.github.prekel.JavaSpring.Lab05.component;
+package com.github.prekel.JavaSpring.Lab05.data;
 
 import com.github.prekel.JavaSpring.Lab05.entity.Furniture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
-@Component("furnitureJdbcDao")
 public class FurnitureJdbcDao implements FurnitureDao {
     private JdbcTemplate jdbcTemplate;
 
@@ -42,9 +41,10 @@ public class FurnitureJdbcDao implements FurnitureDao {
     }
 
     @Override
-    public void insert(Furniture furniture) {
-        jdbcTemplate.update("INSERT INTO Furniture (id, type, model, manufacturer, cost, height) VALUES (DEFAULT,?,?,?,?,?)",
-                furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight());
+    public int insert(Furniture furniture) {
+        return jdbcTemplate.queryForObject("INSERT INTO Furniture (id, type, model, manufacturer, cost, height) VALUES (DEFAULT,?,?,?,?,?) RETURNING id",
+                new Object[]{furniture.getType(), furniture.getModel(), furniture.getManufacturer(), furniture.getCost(), furniture.getHeight()},
+                new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.NUMERIC, Types.DOUBLE}, Integer.class);
     }
 
     @Override

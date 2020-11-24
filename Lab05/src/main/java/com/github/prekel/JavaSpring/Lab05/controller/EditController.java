@@ -14,27 +14,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/add")
-public class AddController {
+@RequestMapping("/edit")
+public class EditController {
     private final FurnitureDao furnitureDao;
 
-    public AddController(@Qualifier("furnitureJdbcDao") FurnitureDao furnitureDao) {
+    public EditController(@Qualifier("furnitureRepository") FurnitureDao furnitureDao) {
         this.furnitureDao = furnitureDao;
     }
 
     @GetMapping
     public String createStudent(Model model) {
         model.addAttribute("furnitureForm", new FurnitureForm());
-        return "add";
+        return "edit";
     }
 
     @PostMapping
     public String greetingSubmit(@Valid FurnitureForm furnitureForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "add";
+            return "edit";
         }
-        var id = furnitureDao.insert(new Furniture(furnitureForm.getType(), furnitureForm.getModel(),
+        if (furnitureDao.findById(furnitureForm.getId()).isEmpty()) {
+            model.addAttribute("notFound", "Не найдено");
+            return "edit";
+        }
+        furnitureDao.updateById(furnitureForm.getId(), new Furniture(furnitureForm.getType(), furnitureForm.getModel(),
                 furnitureForm.getManufacturer(), furnitureForm.getCost(), furnitureForm.getHeight()));
-        return "redirect:/view?id=" + id;
+        return "redirect:/view?id=" + furnitureForm.getId();
     }
 }

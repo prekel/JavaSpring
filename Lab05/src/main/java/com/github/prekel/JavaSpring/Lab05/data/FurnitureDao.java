@@ -1,4 +1,4 @@
-package com.github.prekel.JavaSpring.Lab05.component;
+package com.github.prekel.JavaSpring.Lab05.data;
 
 import com.github.prekel.JavaSpring.Lab05.entity.Furniture;
 
@@ -10,6 +10,6 @@ public interface FurnitureDao {
     List<Furniture> findByType(String type);
     Optional<Furniture> findById(int id);
     void updateById(int id, Furniture furniture);
-    void insert(Furniture furniture);
+    int insert(Furniture furniture);
     void removeById(int id);
 }
