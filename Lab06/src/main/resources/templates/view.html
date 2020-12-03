@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Посмотреть мебель</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header>
+    <h1>Посмотреть мебель</h1>
+</header>
+<article>
+    <section>
+        <form th:object="${idForm}" method="get">
+            <div>
+                <p>Идентификатор (0 - для всех)</p>
+                <label>
+                    <input type="number" name="id" th:field="*{id}" placeholder="id"/>
+                </label>
+                <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id error</span>
+            </div>
+            <div>
+                <br>
+                <button type="submit">Показать по идентификатору</button>
+            </div>
+        </form>
+        <form th:object="${typeForm}" method="get">
+            <div>
+                <p>Тип</p>
+                <label>
+                    <input type="text" name="type" th:field="*{type}" placeholder="type"/>
+                </label>
+                <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type error</span>
+            </div>
+            <div>
+                <br>
+                <button type="submit">Показать по типу</button>
+            </div>
+        </form>
+    </section>
+    <hr>
+    <section>
+        <p th:text="'Количество: ' + ${furnitures != null ? furnitures.size() : 0}">Количество: </p>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Model</th>
+                <th>Manufacturer</th>
+                <th>Cost</th>
+                <th>Height</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="furniture, itemStat : *{furnitures}">
+                <td><p th:text="*{furniture.getId()}"></p></td>
+                <td><p th:text="*{furniture.getType()}"></p></td>
+                <td><p th:text="*{furniture.getModel()}"></p></td>
+                <td><p th:text="*{furniture.getManufacturer()}"></p></td>
+                <td><p th:text="*{furniture.getCost()}"></p></td>
+                <td><p th:text="*{furniture.getHeight()}"></p></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</article>
+<footer>
+    <hr>
+    <a href="/">Домой</a>
+</footer>
+</body>
+</html>

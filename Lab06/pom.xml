@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.prekel.JavaSpring.Lab05</groupId>
-    <artifactId>Lab05</artifactId>
+    <groupId>com.github.prekel.JavaSpring.Lab06</groupId>
+    <artifactId>Lab06</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Lab05</name>
-    <url>https://github.com/prekel/JavaSpring/tree/master/Lab05</url>
-    <description>Lab05 Webapp</description>
+    <name>Lab06</name>
+    <url>https://github.com/prekel/JavaSpring/tree/master/Lab06</url>
+    <description>Lab06 Webapp</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -115,10 +115,30 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-config</artifactId>-->
+<!--            <version>5.4.1</version>-->
+<!--        </dependency>&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-context &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-context</artifactId>-->
+<!--            <version>5.3.1</version>-->
+<!--        </dependency>-->
+
+
     </dependencies>
 
     <build>
-        <finalName>Lab05</finalName>
+        <finalName>Lab06</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
