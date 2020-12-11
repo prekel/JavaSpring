@@ -1,4 +1,4 @@
-package com.github.prekel.JavaSpring.Lab04;
+    package com.github.prekel.JavaSpring.Lab04;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
