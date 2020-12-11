@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Регистрация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header>
+    <h1>Регистрация</h1>
+</header>
+<article>
+    <form class="form" th:object="${userForm}" method="post">
+        <div>
+            <p>Имя пользователя</p>
+            <label>
+                <input type="text" name="username" placeholder="Username"/>
+            </label>
+            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type error</span>
+        </div>
+        <div>
+            <p>Gfhjkm</p>
+            <label>
+                <input type="password" name="password" placeholder="Password"/>
+            </label>
+            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type error</span>
+        </div>
+        <div class="buttons">
+            <button type="submit">Sign up</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+</article>
+<footer>
+    <hr>
+    <a href="/">Домой</a>
+</footer>
+</body>
+</html>

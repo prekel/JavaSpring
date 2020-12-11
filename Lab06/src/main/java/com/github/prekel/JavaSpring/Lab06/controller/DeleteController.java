@@ -24,13 +24,13 @@ public class DeleteController {
     @GetMapping
     public String getForm(Model model) {
         model.addAttribute("idForm", new IdForm());
-        return "/WEB-INF/views/delete.html";
+        return "delete";
     }
 
     @PostMapping
     public String addByForm(@Valid IdForm idForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/WEB-INF/views/delete.html";
+            return "delete";
         }
         var id = idForm.getId();
         furnitureDao.removeById(id);

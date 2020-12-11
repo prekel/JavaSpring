@@ -27,19 +27,19 @@ public class EditController {
     public String getForm(Model model) {
         model.addAttribute("idForm", new IdForm());
         model.addAttribute("furnitureForm", new FurnitureForm());
-        return "/WEB-INF/views/edit.html";
+        return "edit";
     }
 
     @GetMapping(params = "id")
     public String fillById(@Valid IdForm idForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("furnitureForm", new FurnitureForm());
-            return "/WEB-INF/views/edit.html";
+            return "edit";
         }
         if (furnitureDao.findById(idForm.getId()).isEmpty()) {
             model.addAttribute("notFound", true);
             model.addAttribute("furnitureForm", new FurnitureForm());
-            return "/WEB-INF/views/edit.html";
+            return "edit";
         }
         var form = new FurnitureForm();
         form.setId(idForm.getId());
@@ -50,17 +50,17 @@ public class EditController {
         form.setCost(f.getCost());
         form.setHeight(f.getHeight());
         model.addAttribute("furnitureForm", form);
-        return "/WEB-INF/views/edit.html";
+        return "edit";
     }
 
     @PostMapping
     public String editByForm(@Valid FurnitureForm furnitureForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/WEB-INF/views/edit.html";
+            return "edit";
         }
         if (furnitureDao.findById(furnitureForm.getId()).isEmpty()) {
             model.addAttribute("notFound", true);
-            return "/WEB-INF/views/edit.html";
+            return "edit";
         }
         furnitureDao.updateById(furnitureForm.getId(), new Furniture(furnitureForm.getType(), furnitureForm.getModel(),
                 furnitureForm.getManufacturer(), furnitureForm.getCost(), furnitureForm.getHeight()));

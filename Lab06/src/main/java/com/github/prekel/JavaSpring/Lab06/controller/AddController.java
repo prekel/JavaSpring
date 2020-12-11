@@ -25,13 +25,13 @@ public class AddController {
     @GetMapping
     public String getForm(Model model) {
         model.addAttribute("furnitureForm", new FurnitureForm());
-        return "/WEB-INF/views/add.html";
+        return "add";
     }
 
     @PostMapping
     public String addByForm(@Valid FurnitureForm furnitureForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/WEB-INF/views/add.html";
+            return "add";
         }
         var id = furnitureDao.insert(new Furniture(furnitureForm.getType(), furnitureForm.getModel(),
                 furnitureForm.getManufacturer(), furnitureForm.getCost(), furnitureForm.getHeight()));

@@ -29,29 +29,29 @@ public class ViewController {
 
         var furnitures = furnitureDao.findAll();
         model.addAttribute("furnitures", furnitures);
-        return "/WEB-INF/views/view.html";
+        return "view";
     }
 
     @GetMapping(params = "id")
     public String viewByIdOrAll(@Valid IdForm idForm, BindingResult bindingResultIdForm, TypeForm typeForm, Model model) {
         if (bindingResultIdForm.hasErrors()) {
-            return "/WEB-INF/views/view.html";
+            return "view";
         }
         if (idForm.getId() == 0) {
             return "redirect:/view";
         }
         var furnitures = furnitureDao.findById(idForm.getId()).stream().collect(Collectors.toList());
         model.addAttribute("furnitures", furnitures);
-        return "/WEB-INF/views/view.html";
+        return "view";
     }
 
     @GetMapping(params = "type")
     public String viewByType(@Valid TypeForm typeForm, BindingResult bindingResultTypeForm, IdForm idForm, Model model) {
         if (bindingResultTypeForm.hasErrors()) {
-            return "/WEB-INF/views/view.html";
+            return "view";
         }
         var furnitures = furnitureDao.findByType(typeForm.getType());
         model.addAttribute("furnitures", furnitures);
-        return "/WEB-INF/views/view.html";
+        return "view";
     }
 }

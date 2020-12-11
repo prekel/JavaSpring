@@ -20,11 +20,11 @@ public class IndexController {
     @GetMapping
     public String showHomePage(Model model) {
         model.addAttribute("count", furnitureDao.count());
-        return "/WEB-INF/views/index.html";
+        return "index";
     }
 
     @GetMapping("/admin")
     public String privateHome() {
-        return "/WEB-INF/views/privatePage.html";
+        return "private";
     }
 }
