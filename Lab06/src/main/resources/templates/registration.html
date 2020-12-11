@@ -15,18 +15,17 @@
             <label>
                 <input type="text" name="username" placeholder="Username"/>
             </label>
-            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type error</span>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username error</span>
         </div>
         <div>
-            <p>Gfhjkm</p>
+            <p>Пароль</p>
             <label>
                 <input type="password" name="password" placeholder="Password"/>
             </label>
-            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type error</span>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
         </div>
         <div class="buttons">
-            <button type="submit">Sign up</button>
-            <button type="reset">Reset</button>
+            <button type="submit">Регистрация</button>
         </div>
     </form>
 </article>
