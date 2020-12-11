@@ -1,8 +1,11 @@
 package com.github.prekel.JavaSpring.Lab06.controller;
 
+import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.data.FurnitureDao;
 import com.github.prekel.JavaSpring.Lab06.form.IdForm;
 import com.github.prekel.JavaSpring.Lab06.form.TypeForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/view")
 public class ViewController {
+    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
     private final FurnitureDao furnitureDao;
 
     public ViewController(@Qualifier("furnitureRepository") FurnitureDao furnitureDao) {

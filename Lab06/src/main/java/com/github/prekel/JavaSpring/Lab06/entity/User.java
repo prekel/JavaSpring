@@ -3,9 +3,11 @@ package com.github.prekel.JavaSpring.Lab06.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table(name = "users")
 @Entity
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue
@@ -16,10 +18,10 @@ public class Users {
     private String role = "user";
     private byte enabled = (byte) 1;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

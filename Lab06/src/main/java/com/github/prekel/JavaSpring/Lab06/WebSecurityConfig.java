@@ -1,6 +1,8 @@
 package com.github.prekel.JavaSpring.Lab06;
 
 import com.github.prekel.JavaSpring.Lab06.service.CustomUserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
 
     @Qualifier("customUserDetailsService")
     @Autowired
@@ -47,7 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/css/**").permitAll()
                 .antMatchers("/", "/register").permitAll()
                 .antMatchers("/view").hasAnyAuthority("admin", "user")
                 .antMatchers("/add", "/edit", "/delete").hasAuthority("admin")

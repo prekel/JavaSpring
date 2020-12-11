@@ -1,7 +1,10 @@
 package com.github.prekel.JavaSpring.Lab06.service;
 
-import com.github.prekel.JavaSpring.Lab06.component.UsersRepository;
-import com.github.prekel.JavaSpring.Lab06.entity.Users;
+import com.github.prekel.JavaSpring.Lab06.Lab06Application;
+import com.github.prekel.JavaSpring.Lab06.component.UserRepository;
+import com.github.prekel.JavaSpring.Lab06.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,15 +14,15 @@ import org.springframework.stereotype.Service;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
-
-    @Qualifier("usersRepository")
+    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    @Qualifier("userRepository")
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        Users user = usersRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user");

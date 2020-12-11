@@ -1,25 +1,29 @@
 package com.github.prekel.JavaSpring.Lab06.service;
 
-import com.github.prekel.JavaSpring.Lab06.entity.Users;
+import com.github.prekel.JavaSpring.Lab06.Lab06Application;
+import com.github.prekel.JavaSpring.Lab06.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
+    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
 
-    private Users user;
+    private final User user;
 
-    public CustomUserDetails(Users user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-        return Arrays.asList(authority);
+        return Collections.singletonList(authority);
     }
 
     @Override
