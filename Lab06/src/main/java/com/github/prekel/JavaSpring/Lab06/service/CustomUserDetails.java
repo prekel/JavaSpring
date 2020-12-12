@@ -1,6 +1,5 @@
 package com.github.prekel.JavaSpring.Lab06.service;
 
-import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetails.class);
 
     private final User user;
 

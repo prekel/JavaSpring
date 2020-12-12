@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WebSecurityConfig.class);
 
     @Qualifier("customUserDetailsService")
     @Autowired

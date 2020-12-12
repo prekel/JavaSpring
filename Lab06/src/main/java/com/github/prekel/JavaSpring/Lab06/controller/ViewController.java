@@ -1,6 +1,5 @@
 package com.github.prekel.JavaSpring.Lab06.controller;
 
-import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.data.FurnitureDao;
 import com.github.prekel.JavaSpring.Lab06.form.IdForm;
 import com.github.prekel.JavaSpring.Lab06.form.TypeForm;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/view")
 public class ViewController {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ViewController.class);
     private final FurnitureDao furnitureDao;
 
     public ViewController(@Qualifier("furnitureRepository") FurnitureDao furnitureDao) {

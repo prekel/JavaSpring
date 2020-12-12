@@ -13,9 +13,6 @@ import java.util.Optional;
 public interface FurnitureRepository extends JpaRepository<Furniture, Integer>, FurnitureDao {
     List<Furniture> findByType(String type);
 
-    @Transactional
-    void removeById(int id);
-
     Optional<Furniture> findById(int id);
 
     default void updateById(int id, Furniture furniture) {
@@ -26,4 +23,7 @@ public interface FurnitureRepository extends JpaRepository<Furniture, Integer>, 
     default int insert(Furniture furniture) {
         return save(furniture).getId();
     }
+
+    @Transactional
+    void removeById(int id);
 }

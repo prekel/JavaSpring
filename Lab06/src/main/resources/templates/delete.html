@@ -1,21 +1,21 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org" lang="ru">
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Удалить мебель</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
 <header>
     <h1>Удалить мебель</h1>
 </header>
 <article>
-    <form th:object="${idForm}" method="post">
+    <form method="post" th:object="${idForm}">
         <div>
             <p>Идентификатор</p>
             <label>
-                <input type="number" name="id" th:field="*{id}" placeholder="id"/>
+                <input name="id" placeholder="id" th:field="*{id}" type="number"/>
             </label>
-            <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id error</span>
+            <span th:errors="*{id}" th:if="${#fields.hasErrors('id')}">id error</span>
         </div>
         <div>
             <br>

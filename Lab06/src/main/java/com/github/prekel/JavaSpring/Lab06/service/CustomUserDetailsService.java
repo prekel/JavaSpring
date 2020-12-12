@@ -1,6 +1,5 @@
 package com.github.prekel.JavaSpring.Lab06.service;
 
-import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.component.UserRepository;
 import com.github.prekel.JavaSpring.Lab06.entity.User;
 import org.slf4j.Logger;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;

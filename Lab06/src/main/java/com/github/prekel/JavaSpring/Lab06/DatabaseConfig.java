@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 @ComponentScan("com.github.prekel.JavaSpring.Lab06.component")
 @PropertySource("classpath:application.properties")
 public class DatabaseConfig {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseConfig.class);
     @Autowired
     private Environment env;
 

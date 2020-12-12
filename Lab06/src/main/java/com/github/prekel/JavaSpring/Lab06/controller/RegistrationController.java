@@ -1,6 +1,5 @@
 package com.github.prekel.JavaSpring.Lab06.controller;
 
-import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.component.UserRepository;
 import com.github.prekel.JavaSpring.Lab06.entity.User;
 import com.github.prekel.JavaSpring.Lab06.form.UserForm;
@@ -20,7 +19,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     public final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository repository;
 

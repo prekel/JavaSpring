@@ -1,6 +1,5 @@
 package com.github.prekel.JavaSpring.Lab06.controller;
 
-import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.data.FurnitureDao;
 import com.github.prekel.JavaSpring.Lab06.form.IdForm;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/delete")
 public class DeleteController {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteController.class);
     private final FurnitureDao furnitureDao;
 
     public DeleteController(@Qualifier("furnitureJdbcDao") FurnitureDao furnitureDao) {

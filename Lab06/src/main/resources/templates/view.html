@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Посмотреть мебель</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
 <header>
@@ -10,26 +10,26 @@
 </header>
 <article>
     <section>
-        <form th:object="${idForm}" method="get">
+        <form method="get" th:object="${idForm}">
             <div>
                 <p>Идентификатор (0 - для всех)</p>
                 <label>
-                    <input type="number" name="id" th:field="*{id}" placeholder="id"/>
+                    <input name="id" placeholder="id" th:field="*{id}" type="number"/>
                 </label>
-                <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id error</span>
+                <span th:errors="*{id}" th:if="${#fields.hasErrors('id')}">id error</span>
             </div>
             <div>
                 <br>
                 <button type="submit">Показать по идентификатору</button>
             </div>
         </form>
-        <form th:object="${typeForm}" method="get">
+        <form method="get" th:object="${typeForm}">
             <div>
                 <p>Тип</p>
                 <label>
-                    <input type="text" name="type" th:field="*{type}" placeholder="type"/>
+                    <input name="type" placeholder="type" th:field="*{type}" type="text"/>
                 </label>
-                <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">type error</span>
+                <span th:errors="*{type}" th:if="${#fields.hasErrors('type')}">type error</span>
             </div>
             <div>
                 <br>

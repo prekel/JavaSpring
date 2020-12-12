@@ -1,6 +1,5 @@
 package com.github.prekel.JavaSpring.Lab06.controller;
 
-import com.github.prekel.JavaSpring.Lab06.Lab06Application;
 import com.github.prekel.JavaSpring.Lab06.data.FurnitureDao;
 import com.github.prekel.JavaSpring.Lab06.entity.Furniture;
 import com.github.prekel.JavaSpring.Lab06.form.FurnitureForm;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/add")
 public class AddController {
-    private static final Logger LOG = LoggerFactory.getLogger(Lab06Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AddController.class);
     private final FurnitureDao furnitureDao;
 
     public AddController(@Qualifier("furnitureJdbcDao") FurnitureDao furnitureDao) {

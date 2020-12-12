@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="ru"
-      xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Мебель</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
 <header>
@@ -14,7 +14,7 @@
     <section>
         <ul>
             <li sec:authorize="isAuthenticated()">
-                <form th:action="@{/logout}" method="post">
+                <form method="post" th:action="@{/logout}">
                     <button type="submit">Log out</button>
                 </form>
             </li>
