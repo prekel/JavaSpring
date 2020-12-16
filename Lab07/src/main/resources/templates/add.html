@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Добавить мебель</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<header>
+    <h1>Добавить мебель</h1>
+</header>
+<article>
+    <form class="form" method="post" th:object="${furnitureForm}">
+        <div>
+            <p>Тип</p>
+            <label>
+                <input name="type" placeholder="type" th:field="*{type}" type="text"/>
+            </label>
+            <span th:errors="*{type}" th:if="${#fields.hasErrors('type')}">type error</span>
+        </div>
+        <div>
+            <p>Модель</p>
+            <label>
+                <input name="model" placeholder="model" th:field="*{model}" type="text"/>
+            </label>
+            <span th:errors="*{model}" th:if="${#fields.hasErrors('model')}">model error</span>
+        </div>
+        <div>
+            <p>Производитель</p>
+            <label>
+                <input name="manufacturer" placeholder="manufacturer" th:field="*{manufacturer}" type="text"/>
+            </label>
+            <span th:errors="*{manufacturer}" th:if="${#fields.hasErrors('manufacturer')}">Name error</span>
+        </div>
+        <div>
+            <p>Цена</p>
+            <label>
+                <input name="cost" placeholder="cost" th:field="*{cost}" type="number"/>
+            </label>
+            <span th:errors="*{cost}" th:if="${#fields.hasErrors('cost')}">cost error</span>
+        </div>
+        <div>
+            <p>Высота</p>
+            <label>
+                <input name="height" placeholder="height" th:field="*{height}" type="number"/>
+            </label>
+            <span th:errors="*{height}" th:if="${#fields.hasErrors('height')}">height error</span>
+        </div>
+        <div class="buttons">
+            <br>
+            <button type="submit">Добавить</button>
+        </div>
+    </form>
+</article>
+<footer>
+    <hr>
+    <a href="/">Домой</a>
+</footer>
+</body>
+</html>

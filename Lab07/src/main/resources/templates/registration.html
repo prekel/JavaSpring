@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Регистрация</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<header>
+    <h1>Регистрация</h1>
+</header>
+<article>
+    <form class="form" method="post" th:object="${userForm}">
+        <div>
+            <p>Имя пользователя</p>
+            <label>
+                <input name="username" placeholder="Username" type="text"/>
+            </label>
+            <span th:errors="*{username}" th:if="${#fields.hasErrors('username')}">username error</span>
+        </div>
+        <div>
+            <p>Пароль</p>
+            <label>
+                <input name="password" placeholder="Password" type="password"/>
+            </label>
+            <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}">password error</span>
+        </div>
+        <div class="buttons">
+            <button type="submit">Регистрация</button>
+        </div>
+    </form>
+</article>
+<footer>
+    <hr>
+    <a href="/">Домой</a>
+</footer>
+</body>
+</html>
