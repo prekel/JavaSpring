@@ -25,9 +25,4 @@ public class IndexController {
         model.addAttribute("count", furnitureDao.count());
         return "index";
     }
-
-    @GetMapping("/admin")
-    public String privateHome() {
-        return "private";
-    }
 }
