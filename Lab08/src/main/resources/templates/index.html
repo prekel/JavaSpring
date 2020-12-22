@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="ru"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Мебель</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<header>
+    <h1>Мебель</h1>
+</header>
+<article>
+    <section>
+        <ul>
+            <li sec:authorize="isAuthenticated()">
+                <form method="post" th:action="@{/logout}">
+                    <button type="submit">Log out</button>
+                </form>
+            </li>
+            <li sec:authorize="isAnonymous()"><a href="/registration">Регистрация</a></li>
+            <li sec:authorize="isAnonymous()"><a href="/login">Вход</a></li>
+        </ul>
+        <p sec:authorize="isAuthenticated()">Welcome, [[${#httpServletRequest.remoteUser}]]!</p>
+    </section>
+    <section>
+        <p th:text="'Мебели в каталоге: ' + ${count}">Мебели в каталоге:</p>
+        <ul>
+            <li><a href="/add">Добавить мебель</a></li>
+            <li><a href="/edit">Редактировать мебель</a></li>
+            <li><a href="/delete">Удалить мебель</a></li>
+            <li><a href="/view">Посмотреть мебель</a></li>
+        </ul>
+    </section>
+</article>
+<footer>
+    <hr>
+    <a href="/">Домой</a>
+</footer>
+</body>
+</html>

@@ -17,6 +17,7 @@
         <module>Lab06</module>
         <module>Lab07</module>
         <module>Lab07RestTemplate</module>
+        <module>Lab08</module>
     </modules>
 
     <properties>
